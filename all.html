@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Restaurant</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Restaurant</h1>
+      <h3>Current Reservations and Waiting List</h3>
+      <hr>
+      <a href="/"><button class="btn btn-danger btn-lg"><span class="fa fa-eye"></span> Home</button></a>
+      <a href="/add"><button class="btn btn-danger btn-lg"><span class="fa fa-plus"></span> Make Reservations</button></a>
+    </div>
+
+        <!-- Reservation -->
+        <div class="row">
+
+          <div class="col-12">
+    
+            <div class="card">
+              <div class="card-header">
+                <strong>Reservation</strong></h3>
+              </div>
+    
+              <div class="card-body">
+                <ul id="reservation-section" class="list-group">
+    
+                </ul>
+              </div>
+    
+            </div>
+          </div>
+        </div> 
+          <!-- reservation section ends -->
+    
+        <!-- waitlist -->
+        <div class="row">
+    
+          <div class="col-12">
+    
+            <div class="card">
+              <div class="card-header">
+                <strong>Waitlist</strong></h3>
+              </div>
+    
+              <div class="card-body">
+                <ul id="waitlist-section" class="list-group">
+    
+                </ul>
+              </div>
+    
+            </div>
+          </div>
+        </div>   
+        <!-- waitlist section ends -->
+    
+    
+      </div> 
+      <!-- Containter ends -->
+    
+        <script type="text/javascript">
+    
+          $.get("/api/makereservation", function(data) {
+            for (var i = 0; i < data.length; i++) {
+              console.log(data[i]);
+              var listGroupItem = $("<li class='list-group-item'>");
+              
+              listGroupItem.append($("<h2>").text("# " + parseInt(i + 1))); 
+              listGroupItem.append($("<h2>").text("Name: " + data[i].name));
+              listGroupItem.append($("<h3>").text("Email: " + data[i].email));
+              listGroupItem.append($("<h3>").text("Phone: " + data[i].phone));
+              listGroupItem.append($("<h3>").text("ID: " + data[i].id));
+    
+              $("#reservation-section").append(listGroupItem);
+            }
+          });
+    
+          $.get("/api/waitlist", function(data) {
+            for (var i = 0; i < data.length; i++) {
+              console.log(data[i]);
+              var listGroupItem = $("<li class='list-group-item'>");
+              
+              listGroupItem.append($("<h2>").text("# " + parseInt(i + 1))); 
+              listGroupItem.append($("<h2>").text("Name: " + data[i].name));
+              listGroupItem.append($("<h3>").text("Email: " + data[i].email));
+              listGroupItem.append($("<h3>").text("Phone: " + data[i].phone));
+              listGroupItem.append($("<h3>").text("ID: " + data[i].id));
+    
+              $("#waitlist-section").append(listGroupItem);
+            }
+          });
+    
+    
+    
+        </script>
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+    
+   
+
+</body>
+
+</html>
